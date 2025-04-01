@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prijava</title>
+    <link rel="stylesheet" href="/css/prijava.css">
+</head>
+<body>
+    <h2>Prijava</h2>
+    
+    <form id="loginForm" action="/prijava" method="POST">
+        <label for="username">Uporabniško ime:</label>
+        <input type="text" id="username" name="username" required>
+        
+        <label for="password">Geslo:</label>
+        <input type="password" id="password" name="password" required>
+        <div id="errorMessage" class="error-message"></div>
+        
+        <button type="submit">Prijava</button>
+    </form>
+    
+    <p>Nimate računa? <a href="register.html">Registrirajte se</a></p>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const error = urlParams.get('error');
+            const errorMessage = document.getElementById('errorMessage');
+            
+            if (error === '1') {
+                errorMessage.textContent = 'Napačno uporabniško ime ali geslo';
+                
+                setTimeout(function() {
+                    errorMessage.textContent = '';
+                    window.history.replaceState({}, document.title, window.location.pathname);
+                }, 5000);
+            }
+            else if (error === '2') {
+                errorMessage.textContent = 'Napaka na strežniku, prosimo poskusite znova';
+                
+                setTimeout(function() {
+                    errorMessage.textContent = '';
+                    window.history.replaceState({}, document.title, window.location.pathname);
+                }, 5000);
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registracija</title>
+    <link rel="stylesheet" href="/css/prijava.css">
+</head>
+<body>
+    <h2>Registracija</h2>
+    <form id="registerForm" action="/registracija" method="POST">
+        <label for="username">Uporabniško ime:</label>
+        <input type="text" id="username" name="username" required>
+        <div id="usernameError" class="error-message"></div>
+        
+        <label for="password">Geslo:</label>
+        <input type="password" id="password" name="password" required>
+        
+        <label for="confirmPassword">Potrdite geslo:</label>
+        <input type="password" id="confirmPassword" name="confirmPassword" required>
+        <div id="passwordError" class="error-message"></div>
+        
+        <button type="submit">Registracija</button>
+    </form>
+    <p>Že imate račun? <a href="login.html">Prijavite se</a></p>
+
+    <script>
+        const usernameInput = document.getElementById('username');
+        const usernameError = document.getElementById('usernameError');
+        
+        // Preverjanje uporabniškega imena v realnem času
+        usernameInput.addEventListener('blur', async function() {
+            const username = this.value;
+            if(username.length < 3) return;
+            
+            try {
+                const response = await fetch('/preveriIme', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ username })
+                });
+                
+                const data = await response.json();
+                usernameError.textContent = data.available ? '' : 'To uporabniško ime je že zasedeno';
+            } catch (error) {
+                console.error('Napaka pri preverjanju imena:', error);
+            }
+        });
+
+        // Preverjanje gesel ob oddaji
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const passwordError = document.getElementById('passwordError');
+            
+            let isValid = true;
+            
+            if (password !== confirmPassword) {
+                passwordError.textContent = 'Gesli se ne ujemata!';
+                isValid = false;
+            } else {
+                passwordError.textContent = '';
+            }
+            
+            if (usernameError.textContent !== '') {
+                isValid = false;
+            }
+            
+            if (!isValid) {
+                e.preventDefault();
+            }
+        });
+    </script>
+</body>
+</html>
