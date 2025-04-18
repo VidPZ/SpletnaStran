@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nalaganje datotek</title>
+    <link rel="stylesheet" href="zasciteneDatoteke/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://kit.fontawesome.com/32185b8427.js" crossorigin="anonymous"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Spletna stran za datoteke</h1>
+        <div class="obrazca">
+            <form id="naloziDatoteko" action="/naloziDatoteko" method="POST" enctype="multipart/form-data">
+                <input type="file" name="datoteka" id="datoteka" multiple />
+                <button type="oddaj">Naloži datoteko</button>
+            </form>
+        
+            <form id="naloziMapo" action="/naloziMapo" method="POST" enctype="multipart/form-data">
+                <input type="text" name="mapa" placeholder="Vnesite ime mape" required />
+                <input type="file" name="datoteka" id="mapa" webkitdirectory multiple />
+                <button type="oddaj">Naloži mapo</button>
+            </form>
+        </div>
+        <div>
+            <h1>Datoteke</h1>
+            <label for="vrstniRed">Razvrsti:</label>
+            <select id="vrstniRed">
+              <option value="abecedno">Abecedno</option>
+              <option value="velikost">Velikost</option>
+              <option value="datum">Datum</option>
+            </select>
+          </div>
+          <br>
+        <ul id="seznamDatotek" class="seznamDatotek">
+        </ul>
+    </div>
+    <script src="zasciteneDatoteke/js/seznamDatotek.js"></script>
+    <script src="zasciteneDatoteke/js/nalozi.js"></script>
+    <script src="zasciteneDatoteke/js/izbrisi.js"></script>
+    <script src="zasciteneDatoteke/js/sortiraj.js"></script>
+</body>
+</html>

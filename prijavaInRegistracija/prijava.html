@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prijava</title>
+    <link rel="stylesheet" href="/prijavaRegistracija.css">
+</head>
+<body>
+    <h2>Prijava</h2>
+    <form id="prijava" action="/prijava" method="POST">
+        <label for="username">Uporabniško ime:</label>
+        <input type="text" id="uporabniskoIme" name="uporabniskoIme" required>
+        
+        <label for="password">Geslo:</label>
+        <input type="password" id="geslo" name="geslo" required>
+        <div id="errorMessage" class="error-message"></div>
+        
+        <button type="oddaj">Prijava</button>
+    </form>
+    <p>Nimaš računa? <a href="registracija.html">Registriraj se</a></p>
+    <script src="/js/prijava.js"></script>
+</body>
+</html>
